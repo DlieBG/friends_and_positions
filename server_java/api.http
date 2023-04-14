@@ -1,4 +1,4 @@
-POST http://localhost:8080/FAPServer/service/fapservice/addUserService9
+POST http://localhost:8080/FAPServer/service/fapservice/addUser
 Accept: application/json
 Content-Type: application/json
 
