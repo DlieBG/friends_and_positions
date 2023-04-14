@@ -1,4 +1,7 @@
-POST http://localhost:8080/FAPServer/service/fapservice/addUser
+@endpoint = http://localhost:8080/FAPServer/service/fapservice/
+@session = e0dd9a2e-5b55-472d-ac76-48ac37229cd8
+
+POST {{endpoint}}addUser
 Accept: application/json
 Content-Type: application/json
 
@@ -19,10 +22,10 @@ Content-Type: application/json
     }
 }
 ###
-GET http://localhost:8080/FAPServer/service/fapservice/checkLoginName?id=pet
+GET {{endpoint}}checkLoginName?id=pet
 Accept: application/json
 ###
-POST http://localhost:8080/FAPServer/service/fapservice/login
+POST {{endpoint}}login
 Accept: application/json
 Content-Type: application/json
 
@@ -34,33 +37,33 @@ Content-Type: application/json
     }
 }
 ###
-POST http://localhost:8080/FAPServer/service/fapservice/logout
+POST {{endpoint}}logout
 Accept: application/json
 Content-Type: application/json
 
 {
     "loginName": "tester",
-    "sitzung": "e0dd9a2e-5b55-472d-ac76-48ac37229cd8"
+    "sitzung": "{{session}}"
 }
 ###
-PUT http://localhost:8080/FAPServer/service/fapservice/setStandort
+PUT {{endpoint}}setStandort
 Accept: application/json
 Content-Type: application/json
 
 {
     "loginName": "tester",
-    "sitzung": "b522e82a-7a74-4c49-a03c-0b6e8fae83d1",
+    "sitzung": "{{session}}",
     "standort": {
         "breitengrad": 11,
         "laengengrad": 10
     }
 }
 ###
-GET http://localhost:8080/FAPServer/service/fapservice/getStandort?login=tester&session=b522e82a-7a74-4c49-a03c-0b6e8fae83d1&id=tester
+GET {{endpoint}}getStandort?login=tester&session={{session}}&id=tester
 Accept: application/json
 ###
-GET http://localhost:8080/FAPServer/service/fapservice/getBenutzer?login=tester&session=7bab5b86-4a98-43af-aedd-79f78a379f68
+GET {{endpoint}}getBenutzer?login=tester&session={{session}}
 Accept: application/json
 ###
-GET http://localhost:8080/FAPServer/service/fapservice/getStandortPerAdresse?land=Deutschland&plz=46397&ort=Bocholt&strasse=Münsterstrasse 265
+GET {{endpoint}}getStandortPerAdresse?land=Deutschland&plz=46397&ort=Bocholt&strasse=Münsterstrasse 265
 Accept: application/json
