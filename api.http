@@ -1,0 +1,66 @@
+POST http://localhost:8080/FAPServer/service/fapservice/addUserService9
+Accept: application/json
+Content-Type: application/json
+
+{
+    "loginName": "peterl",
+    "passwort": {
+        "passwort": "geheim"
+    },
+    "vorname": "Peter",
+    "nachname": "Lustig",
+    "strasse": "Akazienweg 13",
+    "plz": "46397",
+    "ort": "Bocholt",
+    "land": "Deutschland",
+    "telefon": "02871/4711007",
+    "email": {
+        "adresse": "peterl@test.de"
+    }
+}
+###
+GET http://localhost:8080/FAPServer/service/fapservice/checkLoginName?id=pet
+Accept: application/json
+###
+POST http://localhost:8080/FAPServer/service/fapservice/login
+Accept: application/json
+Content-Type: application/json
+
+{
+    "loginName": "tester",
+    "passwort":
+    {
+        "passwort": "tester"
+    }
+}
+###
+POST http://localhost:8080/FAPServer/service/fapservice/logout
+Accept: application/json
+Content-Type: application/json
+
+{
+    "loginName": "tester",
+    "sitzung": "e0dd9a2e-5b55-472d-ac76-48ac37229cd8"
+}
+###
+PUT http://localhost:8080/FAPServer/service/fapservice/setStandort
+Accept: application/json
+Content-Type: application/json
+
+{
+    "loginName": "tester",
+    "sitzung": "b522e82a-7a74-4c49-a03c-0b6e8fae83d1",
+    "standort": {
+        "breitengrad": 11,
+        "laengengrad": 10
+    }
+}
+###
+GET http://localhost:8080/FAPServer/service/fapservice/getStandort?login=tester&session=b522e82a-7a74-4c49-a03c-0b6e8fae83d1&id=tester
+Accept: application/json
+###
+GET http://localhost:8080/FAPServer/service/fapservice/getBenutzer?login=tester&session=7bab5b86-4a98-43af-aedd-79f78a379f68
+Accept: application/json
+###
+GET http://localhost:8080/FAPServer/service/fapservice/getStandortPerAdresse?land=Deutschland&plz=46397&ort=Bocholt&strasse=Münsterstrasse 265
+Accept: application/json
