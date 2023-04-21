@@ -1,0 +1,14 @@
+version: '3'
+services:
+  mongo:
+    image: mongo:6.0.3
+    ports:
+      - 27017:27017
+  fap:
+    build: .
+    ports:
+      - 8080:8080
+    environment:
+      - MONGO_URI=mongodb://mongo:27017
+    depends_on:
+      - mongo
