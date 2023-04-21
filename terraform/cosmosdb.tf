@@ -2,6 +2,7 @@ resource "azurerm_cosmosdb_account" "cosmosdb_account" {
     name                = "${var.project}ca"
     location            = azurerm_resource_group.resource_group.location
     resource_group_name = azurerm_resource_group.resource_group.name
+
     offer_type          = "Standard"
     kind                = "MongoDB"
 
