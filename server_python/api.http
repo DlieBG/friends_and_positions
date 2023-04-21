@@ -1,0 +1,84 @@
+@endpoint = http://localhost:8080/FAPServer/service/fapservice/
+@session = 6cbf54f0-0957-4b8e-aa71-f685a287a36f
+
+POST {{endpoint}}addUser
+Accept: application/json
+Content-Type: application/json
+
+{
+    "loginName": "peterl",
+    "passwort": {
+        "passwort": "geheim"
+    },
+    "vorname": "Peter",
+    "nachname": "Lustig",
+    "strasse": "Akazienweg 13",
+    "plz": "46397",
+    "ort": "Bocholt",
+    "land": "Deutschland",
+    "telefon": "02871/4711007",
+    "email": {
+        "adresse": "peterl@test.de"
+    }
+}
+###
+GET {{endpoint}}checkLoginName?id=peter1
+Accept: application/json
+###
+GET {{endpoint}}checkLoginName?id=pet
+Accept: application/json
+###
+POST {{endpoint}}login
+Accept: application/json
+Content-Type: application/json
+
+{
+    "loginName": "peterl",
+    "passwort":
+    {
+        "passwort": "geheim"
+    }
+}
+###
+POST {{endpoint}}login
+Accept: application/json
+Content-Type: application/json
+
+{
+    "loginName": "tester",
+    "passwort":
+    {
+        "passwort": "tester"
+    }
+}
+###
+POST {{endpoint}}logout
+Accept: application/json
+Content-Type: application/json
+
+{
+    "loginName": "peterl",
+    "sitzung": "{{session}}"
+}
+###
+PUT {{endpoint}}setStandort
+Accept: application/json
+Content-Type: application/json
+
+{
+    "loginName": "peterl",
+    "sitzung": "{{session}}",
+    "standort": {
+        "breitengrad": 11,
+        "laengengrad": 10
+    }
+}
+###
+GET {{endpoint}}getStandort?login=peterl&session={{session}}&id=peterl
+Accept: application/json
+###
+GET {{endpoint}}getBenutzer?login=peterl&session={{session}}
+Accept: application/json
+###
+GET {{endpoint}}getStandortPerAdresse?land=Deutschland&plz=46397&ort=Bocholt&strasse=Münsterstrasse 265
+Accept: application/json
