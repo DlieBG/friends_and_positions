@@ -5,28 +5,23 @@ import json
 
 def main(req: func.HttpRequest) -> func.HttpResponse:
     with FAPDatabase('benutzer') as benutzer_collection:
-        body = req.get_json()
+        login_name = req.params.get('login')
+        session_id = req.params.get('session')
+        id = req.params.get('id')
 
         benutzer = benutzer_collection.find_one({
-            'loginName': body['loginName'],
-            'session_id': body['sitzung']
+            'loginName': login_name,
+            'session_id': session_id
         })
 
-        if benutzer:
-            benutzer_collection.update_one(
-                {
-                    '_id': benutzer['_id']
-                },
-                {
-                    '$unset': {
-                        'session_id': ''
-                    }
-                }
-            )
+        standort_benutzer = benutzer_collection.find_one({
+            'loginName': id
+        })
 
+        if benutzer and standort_benutzer:
             return func.HttpResponse(
                 body=json.dumps({
-                    'ergebnis': True
+                    'standort': standort_benutzer['standort']
                 }),
                 status_code=200,
                 mimetype='applicatoin/json',
