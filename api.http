@@ -1,6 +1,6 @@
 @endpoint = http://localhost:8080/FAPServer/service/fapservice/
 @endpoint = http://localhost:7071/FAPServer/service/fapservice/
-@session = 6cbf54f0-0957-4b8e-aa71-f685a287a36f
+@session = d3e8044c-ad76-43dc-bb67-b118916c4481
 
 POST {{endpoint}}addUser
 Accept: application/json
