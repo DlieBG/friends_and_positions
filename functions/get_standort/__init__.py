@@ -1,5 +1,5 @@
+from shared_db import FAPDatabase
 import azure.functions as func
-from db import FAPDatabase
 import json
 
 

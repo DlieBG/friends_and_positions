@@ -1,5 +1,6 @@
 @endpoint = http://localhost:8080/FAPServer/service/fapservice/
 @endpoint = http://localhost:7071/FAPServer/service/fapservice/
+@endpoint = https://fapfa.azurewebsites.net/FAPServer/service/fapservice/
 @session = d3e8044c-ad76-43dc-bb67-b118916c4481
 
 POST {{endpoint}}addUser
