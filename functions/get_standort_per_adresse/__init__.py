@@ -1,3 +1,4 @@
+from geopy.geocoders import Nominatim
 import azure.functions as func
 from db import FAPDatabase
 import json
@@ -5,28 +6,19 @@ import json
 
 def main(req: func.HttpRequest) -> func.HttpResponse:
     with FAPDatabase('benutzer') as benutzer_collection:
-        login_name = req.params.get('login')
-        session_id = req.params.get('session')
+        land = req.params.get('land')
+        plz = req.params.get('plz')
+        ort = req.params.get('ort')
+        strasse = req.params.get('strasse')
 
-        benutzer = benutzer_collection.find_one({
-            'loginName': login_name,
-            'session_id': session_id
-        })
+        geolocator = Nominatim(user_agent='fap_function')
+        location = geolocator.geocode(f'{strasse}, {plz} {ort}, {land}')
 
-        if benutzer:
-            benutzerliste = benutzer_collection.find(
-                {},
-                {
-                    '_id': 0,
-                    'loginName': 1,
-                    'vorname': 1,
-                    'nachname': 1
-                }
-            )
-
+        if location:
             return func.HttpResponse(
                 body=json.dumps({
-                    'benutzerliste': list(benutzerliste)
+                    'breitengrad': location.latitude,
+                    'laengengrad': location.longitude
                 }),
                 status_code=200,
                 mimetype='applicatoin/json',
