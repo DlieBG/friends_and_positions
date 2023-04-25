@@ -1,44 +1,44 @@
-from shared_db import FAPDatabase
+from pymongo import MongoClient
 import azure.functions as func
-import json
-
+import json, os
 
 def main(req: func.HttpRequest) -> func.HttpResponse:
-    with FAPDatabase('benutzer') as benutzer_collection:
-        body = req.get_json()
+    benutzer_collection = MongoClient(os.getenv('MONGO_URI', 'mongodb://127.0.0.1:27017')).get_database('friends_and_positions').get_collection('benutzer')
+    
+    body = req.get_json()
 
-        if benutzer_collection.find_one({
-            'loginName': body['loginName']
-        }):
-            return func.HttpResponse(
-                body=json.dumps({
-                    'ergebnis': False,
-                    'meldung': 'Benutzername bereits vorhanden.'
-                }),
-                status_code=200,
-                mimetype='applicatoin/json',
-                charset='utf-8'
-            )
-
-        benutzer_collection.insert_one({
-            'loginName': body['loginName'],
-            'passwort': body['passwort']['passwort'],
-            'vorname': body['vorname'],
-            'nachname': body['nachname'],
-            'strasse': body['strasse'],
-            'plz': body['plz'],
-            'ort': body['ort'],
-            'land': body['land'],
-            'telefon': body['telefon'],
-            'email': body['email']
-        })
-
+    if benutzer_collection.find_one({
+        'loginName': body['loginName']
+    }):
         return func.HttpResponse(
             body=json.dumps({
-                'ergebnis': True,
-                'meldung': ''
+                'ergebnis': False,
+                'meldung': 'Benutzername bereits vorhanden.'
             }),
             status_code=200,
             mimetype='applicatoin/json',
             charset='utf-8'
         )
+
+    benutzer_collection.insert_one({
+        'loginName': body['loginName'],
+        'passwort': body['passwort']['passwort'],
+        'vorname': body['vorname'],
+        'nachname': body['nachname'],
+        'strasse': body['strasse'],
+        'plz': body['plz'],
+        'ort': body['ort'],
+        'land': body['land'],
+        'telefon': body['telefon'],
+        'email': body['email']
+    })
+
+    return func.HttpResponse(
+        body=json.dumps({
+            'ergebnis': True,
+            'meldung': ''
+        }),
+        status_code=200,
+        mimetype='applicatoin/json',
+        charset='utf-8'
+    )
