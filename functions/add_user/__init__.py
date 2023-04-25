@@ -14,7 +14,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
         return func.HttpResponse(
             body=json.dumps({
                 'ergebnis': False,
-                'meldung': 'Benutzername bereits vorhanden.'
+                'meldung': 'LoginName bereits vorhanden'
             }),
             status_code=200,
             mimetype='applicatoin/json',
