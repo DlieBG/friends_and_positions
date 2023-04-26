@@ -32,12 +32,15 @@ resource "azurerm_linux_function_app" "function_app" {
     service_plan_id             = azurerm_service_plan.service_plan.id
 
     app_settings = {
-        WEBSITE_RUN_FROM_PACKAGE        = 1
+        ENABLE_ORYX_BUILD              = true
         SCM_DO_BUILD_DURING_DEPLOYMENT  = true 
         MONGO_URI                       = azurerm_cosmosdb_account.cosmosdb_account.connection_strings[0]
     }
 
     site_config {
+        application_stack {
+            python_version = "3.9"
+        }
     }
 
     zip_deploy_file = data.archive_file.zip.output_path
