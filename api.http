@@ -1,5 +1,7 @@
 @endpoint = http://localhost:8080/FAPServer/service/fapservice/
-@session = e0dd9a2e-5b55-472d-ac76-48ac37229cd8
+@endpoint = http://localhost:7071/FAPServer/service/fapservice/
+@endpoint = https://fapfa.azurewebsites.net/FAPServer/service/fapservice/
+@session = d3e8044c-ad76-43dc-bb67-b118916c4481
 
 POST {{endpoint}}addUser
 Accept: application/json
@@ -22,8 +24,23 @@ Content-Type: application/json
     }
 }
 ###
-GET {{endpoint}}checkLoginName?id=pet
+GET {{endpoint}}checkLoginName?id=peter
 Accept: application/json
+###
+GET {{endpoint}}checkLoginName?id=gibtsnicht
+Accept: application/json
+###
+POST {{endpoint}}login
+Accept: application/json
+Content-Type: application/json
+
+{
+    "loginName": "peterl",
+    "passwort":
+    {
+        "passwort": "geheim"
+    }
+}
 ###
 POST {{endpoint}}login
 Accept: application/json
@@ -42,7 +59,7 @@ Accept: application/json
 Content-Type: application/json
 
 {
-    "loginName": "tester",
+    "loginName": "peterl",
     "sitzung": "{{session}}"
 }
 ###
@@ -51,7 +68,7 @@ Accept: application/json
 Content-Type: application/json
 
 {
-    "loginName": "tester",
+    "loginName": "peterl",
     "sitzung": "{{session}}",
     "standort": {
         "breitengrad": 11,
@@ -59,10 +76,10 @@ Content-Type: application/json
     }
 }
 ###
-GET {{endpoint}}getStandort?login=tester&session={{session}}&id=tester
+GET {{endpoint}}getStandort?login=peterl&session={{session}}&id=peterl
 Accept: application/json
 ###
-GET {{endpoint}}getBenutzer?login=tester&session={{session}}
+GET {{endpoint}}getBenutzer?login=peterl&session={{session}}
 Accept: application/json
 ###
 GET {{endpoint}}getStandortPerAdresse?land=Deutschland&plz=46397&ort=Bocholt&strasse=Münsterstrasse 265
