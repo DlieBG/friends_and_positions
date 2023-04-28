@@ -30,7 +30,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
                 'benutzerliste': list(benutzerliste)
             }),
             status_code=200,
-            mimetype='applicatoin/json',
+            mimetype='application/json',
             charset='utf-8'
         )
 
@@ -39,6 +39,6 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
             'ergebnis': False
         }),
         status_code=200,
-        mimetype='applicatoin/json',
+        mimetype='application/json',
         charset='utf-8'
     )

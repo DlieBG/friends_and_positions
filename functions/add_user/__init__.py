@@ -17,7 +17,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
                 'meldung': 'LoginName bereits vorhanden'
             }),
             status_code=200,
-            mimetype='applicatoin/json',
+            mimetype='application/json',
             charset='utf-8'
         )
 
@@ -40,6 +40,6 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
             'meldung': ''
         }),
         status_code=200,
-        mimetype='applicatoin/json',
+        mimetype='application/json',
         charset='utf-8'
     )

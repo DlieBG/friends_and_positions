@@ -25,7 +25,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
                 'standort': standort_benutzer['standort']
             }),
             status_code=200,
-            mimetype='applicatoin/json',
+            mimetype='application/json',
             charset='utf-8'
         )
 
@@ -34,6 +34,6 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
             'ergebnis': False
         }),
         status_code=200,
-        mimetype='applicatoin/json',
+        mimetype='application/json',
         charset='utf-8'
     )
