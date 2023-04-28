@@ -41,6 +41,11 @@ resource "azurerm_linux_function_app" "function_app" {
         application_stack {
             python_version = "3.9"
         }
+        cors {
+            allowed_origins = [
+                "*"
+            ]
+        }
     }
 
     zip_deploy_file = data.archive_file.zip.output_path
