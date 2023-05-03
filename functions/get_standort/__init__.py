@@ -19,7 +19,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
         'loginName': id
     })
 
-    if benutzer and standort_benutzer:
+    if benutzer and standort_benutzer and standort_benutzer['standort']:
         return func.HttpResponse(
             body=json.dumps({
                 'standort': standort_benutzer['standort']
