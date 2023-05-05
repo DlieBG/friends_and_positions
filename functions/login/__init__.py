@@ -6,42 +6,53 @@ import json, os
 
 def main(req: func.HttpRequest) -> func.HttpResponse:
     benutzer_collection = MongoClient(os.getenv('MONGO_URI', 'mongodb://127.0.0.1:27017')).get_database('friends_and_positions').get_collection('benutzer')
+    try:
+        body = req.get_json()
 
-    body = req.get_json()
+        benutzer = benutzer_collection.find_one({
+            'loginName': body['loginName'],
+            'passwort': body['passwort']['passwort']
+        })
 
-    benutzer = benutzer_collection.find_one({
-        'loginName': body['loginName'],
-        'passwort': body['passwort']['passwort']
-    })
+        if benutzer:
+            session_id = str(uuid4())
 
-    if benutzer:
-        session_id = str(uuid4())
-
-        benutzer_collection.update_one(
-            {
-                '_id': benutzer['_id']
-            },
-            {
-                '$set': {
-                    'session_id': session_id
+            benutzer_collection.update_one(
+                {
+                    '_id': benutzer['_id']
+                },
+                {
+                    '$set': {
+                        'session_id': session_id
+                    }
                 }
-            }
-        )
+            )
+
+            return func.HttpResponse(
+                body=json.dumps({
+                    'sessionID': session_id
+                }),
+                status_code=200,
+                mimetype='application/json',
+                charset='utf-8'
+            )
 
         return func.HttpResponse(
             body=json.dumps({
-                'sessionID': session_id
+                'ergebnis': False
             }),
             status_code=200,
             mimetype='application/json',
             charset='utf-8'
         )
-
+    except:
+        pass
     return func.HttpResponse(
-        body=json.dumps({
-            'ergebnis': False
-        }),
-        status_code=200,
-        mimetype='application/json',
-        charset='utf-8'
-    )
+            body=json.dumps({
+                'ergebnis': False,
+                'meldung': '400'
+            }),
+            status_code=200,
+            mimetype='application/json',
+            charset='utf-8'
+        )
