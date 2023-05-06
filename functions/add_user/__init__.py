@@ -5,8 +5,10 @@ import json, os
 def main(req: func.HttpRequest) -> func.HttpResponse:
     benutzer_collection = MongoClient(os.getenv('MONGO_URI', 'mongodb://127.0.0.1:27017')).get_database('friends_and_positions').get_collection('benutzer')
     benutzer_collection.create_index('loginName', unique=True)
+
     try:
         body = req.get_json()
+
         if benutzer_collection.find_one({
             'loginName': body['loginName']
         }):
@@ -32,6 +34,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
             'telefon': body['telefon'],
             'email': body['email']
         })
+
         return func.HttpResponse(
             body=json.dumps({
                 'ergebnis': True,
@@ -43,6 +46,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
         )
     except:
         pass
+
     return func.HttpResponse(
             body=json.dumps({
                 'ergebnis': False,

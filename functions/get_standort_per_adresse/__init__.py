@@ -34,6 +34,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
         )
     except:
         pass
+
     return func.HttpResponse(
             body=json.dumps({
                 'ergebnis': False,

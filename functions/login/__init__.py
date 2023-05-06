@@ -6,6 +6,7 @@ import json, os
 
 def main(req: func.HttpRequest) -> func.HttpResponse:
     benutzer_collection = MongoClient(os.getenv('MONGO_URI', 'mongodb://127.0.0.1:27017')).get_database('friends_and_positions').get_collection('benutzer')
+
     try:
         body = req.get_json()
 
@@ -47,6 +48,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
         )
     except:
         pass
+
     return func.HttpResponse(
             body=json.dumps({
                 'ergebnis': False,
