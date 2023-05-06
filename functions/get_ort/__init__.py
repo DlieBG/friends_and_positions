@@ -18,7 +18,8 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
 
     return func.HttpResponse(
         body=json.dumps({
-            'ergebnis': False
+            'ergebnis': False,
+            'meldung': '404',
         }),
         status_code=200,
         mimetype='application/json',
