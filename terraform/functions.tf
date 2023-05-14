@@ -32,7 +32,7 @@ resource "azurerm_linux_function_app" "function_app" {
     service_plan_id             = azurerm_service_plan.service_plan.id
 
     app_settings = {
-        ENABLE_ORYX_BUILD              = true
+        ENABLE_ORYX_BUILD               = true
         SCM_DO_BUILD_DURING_DEPLOYMENT  = true 
         MONGO_URI                       = azurerm_cosmosdb_account.cosmosdb_account.connection_strings[0]
     }

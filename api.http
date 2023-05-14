@@ -1,7 +1,7 @@
 @endpoint = http://localhost:8080/FAPServer/service/fapservice/
 @endpoint = http://localhost:7071/FAPServer/service/fapservice/
 @endpoint = https://fapfa.azurewebsites.net/FAPServer/service/fapservice/
-@session = abbed0bf-3ee7-4a93-af4b-15aa25213f9d
+@session = 7a9c880d-8837-4400-b7aa-8a4fcd60990c
 
 POST {{endpoint}}addUser
 Accept: application/json
@@ -89,4 +89,7 @@ GET {{endpoint}}getOrt?plz=46325
 Accept: application/json
 ###
 GET {{endpoint}}getOrt?postalcode=46325
+Accept: application/json
+###
+GET {{endpoint}}validateSession?login=peterl&session={{session}}
 Accept: application/json
